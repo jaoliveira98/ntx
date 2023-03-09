@@ -1,10 +1,10 @@
 import React from "react";
-import Main from "../components/Main";
+import RandomMovieBanner from "../components/Main";
 
 const Home = () => {
   return (
     <div>
-      <Main />
+      <RandomMovieBanner />
     </div>
   );
 };
