@@ -1,33 +1,60 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
 import Movie from "./Movie";
+import { CiCircleChevLeft, CiCircleChevRight } from "react-icons/ci";
 
-const Row = ({ title, fetchURL }) => {
-  // Declare two state variables, "movies" and "like", using the useState hook.
+const Row = ({ title, fetchURL, id }) => {
   const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
 
-  // Use the useEffect hook to fetch movie data from the API when the component mounts.
-  // The fetchURL parameter is included in the dependency array to ensure that the effect runs when fetchURL changes.
   useEffect(() => {
-    axios.get(fetchURL).then((response) => {
-      setMovies(response.data.results);
-    });
+    axios
+      .get(fetchURL)
+      .then((response) => {
+        setMovies(response.data.results);
+      })
+      .catch((error) => {
+        setError(error);
+      });
   }, [fetchURL]);
 
-  console.log(movies);
+  const slideLeft = () => {
+    let slider = document.getElementById("slider" + id);
+    slider.scrollLeft = slider.scrollLeft - 500;
+  };
 
-  // Render the row of movie posters using the "movies" state.
+  const slideRight = () => {
+    let slider = document.getElementById("slider" + id);
+    slider.scrollLeft = slider.scrollLeft + 500;
+  };
+
   return (
     <>
       <h2 className="text-white font-bold md:text-xl p-4">{title}</h2>
-      <div className="relative flex items-center">
-        <div id={"slider"}>
-          {movies.map((item, id) => (
-            <Movie item={item} />
-          ))}
+      {error ? (
+        <div className="text-red-500">Error: {error.message}</div>
+      ) : (
+        <div className="relative flex items-center group">
+          <CiCircleChevLeft
+            onClick={slideLeft}
+            className="bg-white left-0 absolute rounded-full opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"
+            size={30}
+          />
+          <div
+            id={"slider" + id}
+            className="w-full h-full snap-x overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
+          >
+            {movies.map((item, id) => (
+              <Movie item={item} />
+            ))}
+          </div>
+          <CiCircleChevRight
+            onClick={slideRight}
+            className="bg-white right-0 absolute rounded-full opacity-50 hover:opacity-100 cursor-pointer z-10 hidden group-hover:block"
+            size={30}
+          />
         </div>
-      </div>
+      )}
     </>
   );
 };

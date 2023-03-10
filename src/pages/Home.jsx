@@ -7,10 +7,10 @@ const Home = () => {
   return (
     <div>
       <RandomMovieBanner />
-      <Row title="UpComing" fetchURL={requests.requestUpcoming} />
-      <Row title="Popular" fetchURL={requests.requestPopular} />
-      <Row title="Trending" fetchURL={requests.requestTrending} />
-      <Row title="Top Rated" fetchURL={requests.requestTopRated} />
+      <Row id="1" title="UpComing" fetchURL={requests.requestUpcoming} />
+      <Row id="2" title="Popular" fetchURL={requests.requestPopular} />
+      <Row id="3" title="Trending" fetchURL={requests.requestTrending} />
+      <Row id="4" title="Top Rated" fetchURL={requests.requestTopRated} />
     </div>
   );
 };
