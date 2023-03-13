@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { PrimaryBtn, DangerBtn } from "./buttons";
 
 const Navbar = () => {
-  const [open, setOpen] = useState(false);
   return (
     <div className="z-[100] w-full absolute">
       <div className="container mx-auto flex items-center justify-between p-4 ">
