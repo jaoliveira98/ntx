@@ -29,7 +29,7 @@ const Row = ({ title, fetchURL, id }) => {
   };
 
   return (
-    <>
+    <div className="container mx-auto">
       <h2 className="text-white font-bold md:text-xl p-4">{title}</h2>
       {error ? (
         <div className="text-red-500">Error: {error.message}</div>
@@ -55,7 +55,7 @@ const Row = ({ title, fetchURL, id }) => {
           />
         </div>
       )}
-    </>
+    </div>
   );
 };
 
