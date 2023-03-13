@@ -45,7 +45,7 @@ const Row = ({ title, fetchURL, id }) => {
             className="w-full h-full snap-x overflow-x-scroll whitespace-nowrap scroll-smooth scrollbar-hide relative"
           >
             {movies.map((item, id) => (
-              <Movie item={item} />
+              <Movie key={id} item={item} />
             ))}
           </div>
           <CiCircleChevRight
