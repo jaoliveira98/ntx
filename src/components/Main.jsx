@@ -1,6 +1,9 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import requests from "../Requests";
+import { CiClock1, CiPlay1 } from "react-icons/ci";
+import { PrimaryBtn, SecondaryBtn } from "./buttons";
+import { LargeTitle, Body, Footnote } from "./typography";
 
 const Main = () => {
   // Define state variable and its updater function
@@ -32,31 +35,26 @@ const Main = () => {
   };
 
   return (
-    <div className="w-full h-[600px] text-white">
-      <div className="w-full h-full">
-        <div className="absolute w-full h-[600px] bg-gradient-to-r from-black"></div>
-        {backdropPath && (
-          <img
-            className="w-full h-full object-cover"
-            src={`https://image.tmdb.org/t/p/original/${backdropPath}`}
-            alt={title}
-          />
-        )}
-        <div className="absolute w-full top-[20%] p-4 md:p-8">
-          <h1 className="text-3xl md:text-5xl font-bold">{title}</h1>
-          <div className="my-4">
-            <button className="border bg-gray-300 text-black border-gray-300 py-2 px-5">
-              Play
-            </button>
-            <button className="border text-white border-gray-300 py-2 px-5 ml-4">
-              Watch Later
-            </button>
-          </div>
-          <p className="text-gray-400 text-sm my-4">Released: {releaseDate}</p>
-          <p className="w-full md:max-w-[70%] lg:max-w-[50%] xl:max-w-[35%] text-gray-200">
-            {truncateString(overview, 150)}
-          </p>
+    <div
+      style={{
+        backgroundImage: `linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0)), url("https://image.tmdb.org/t/p/original/${backdropPath}")`,
+      }}
+      className="w-full min-h-screen flex items-center p-4 bg-no-repeat bg-cover bg-center"
+    >
+      <div className="w-full container mx-auto p-4">
+        <LargeTitle className="max-w-[100%] lg:max-w-[50%]">{title}</LargeTitle>
+        <div className="my-4 flex items-center gap-4">
+          <PrimaryBtn className="flex items-center gap-1">
+            <CiPlay1 /> Play
+          </PrimaryBtn>
+          <SecondaryBtn className="flex items-center gap-1">
+            <CiClock1 /> Watch Later
+          </SecondaryBtn>
         </div>
+        <Footnote>Released: {releaseDate}</Footnote>
+        <Body className="max-w-[100%] lg:max-w-[50%]">
+          {truncateString(overview, 150)}
+        </Body>
       </div>
     </div>
   );
