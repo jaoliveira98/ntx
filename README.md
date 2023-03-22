@@ -1,5 +1,7 @@
 ## About
 
+https://netflix-project-olive.vercel.app/
+
 I built a movie application that allows users to browse popular movies and TV shows, save them to their account, and view their saved shows in a slider format. The application was built using React and styled using Tailwind CSS. Axios was used to fetch data from The Movie Database (TMDb) API, which was used to populate the list of movies and TV shows. Firebase was used as the backend service to store user data such as saved shows, and the Firebase SDK was used to interact with the database. React Query was used to handle the API requests and caching, improving the application's performance by reducing the number of requests made to the API. The use of React Query also allowed for easy data management and error handling. Overall, the application provides an intuitive and seamless user experience, thanks to the combination of these tools.
 
 ## Getting Started with Create React App
