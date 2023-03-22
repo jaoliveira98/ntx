@@ -1,37 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import axios from "axios";
+import { useQuery, QueryClient, QueryClientProvider } from "react-query";
 import requests from "../Requests";
 import { CiClock1, CiPlay1 } from "react-icons/ci";
 import { PrimaryBtn, SecondaryBtn } from "./buttons";
 import { LargeTitle, Body, Footnote } from "./typography";
 
 const Main = () => {
-  // Define state variable and its updater function
-  const [movies, setMovies] = useState([]);
+  // Define a new instance of the QueryClient
+  const queryClient = new QueryClient();
 
-  // Fetch popular movies from external API and update state
-  useEffect(() => {
-    const source = axios.CancelToken.source(); // Create a cancel token source
+  // Define a query to fetch popular movies from external API
+  const {
+    isLoading,
+    isError,
+    data: movies,
+  } = useQuery("popularMovies", async () => {
+    const response = await axios.get(requests.requestPopular);
+    return response.data.results;
+  });
 
-    axios
-      .get(requests.requestPopular, {
-        cancelToken: source.token, // Set the cancel token to the request config
-      })
-      .then((response) => {
-        setMovies(response.data.results);
-      })
-      .catch((error) => {
-        console.error("Failed to fetch popular movies: ", error);
-        setMovies([]); // Set a fallback value for movies state
-      });
-
-    return () => {
-      source.cancel("Request cancelled by user"); // Cancel the request when the component unmounts
-    };
-  }, []);
-
-  // Select a random movie from the list of movies in state
-  const movie = movies[Math.floor(Math.random() * movies.length)];
+  // Select a random movie from the list of movies returned by the query
+  const movie = movies?.[Math.floor(Math.random() * movies?.length)];
 
   // Extract relevant data from the selected movie using destructuring
   const {
